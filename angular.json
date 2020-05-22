@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "projects": {
+    "proof-and-useage": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/proof-and-useage",
+      "sourceRoot": "apps/proof-and-useage/src",
+      "prefix": "with-next-from",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/proof-and-useage",
+            "index": "apps/proof-and-useage/src/index.html",
+            "main": "apps/proof-and-useage/src/main.ts",
+            "polyfills": "apps/proof-and-useage/src/polyfills.ts",
+            "tsConfig": "apps/proof-and-useage/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/proof-and-useage/src/favicon.ico",
+              "apps/proof-and-useage/src/assets"
+            ],
+            "styles": ["apps/proof-and-useage/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/proof-and-useage/src/environments/environment.ts",
+                  "with": "apps/proof-and-useage/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "proof-and-useage:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "proof-and-useage:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "proof-and-useage:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/proof-and-useage/tsconfig.app.json",
+              "apps/proof-and-useage/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/proof-and-useage/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/proof-and-useage/jest.config.js",
+            "tsConfig": "apps/proof-and-useage/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/proof-and-useage/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "proof-and-useage-e2e": {
+      "root": "apps/proof-and-useage-e2e",
+      "sourceRoot": "apps/proof-and-useage-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/proof-and-useage-e2e/cypress.json",
+            "tsConfig": "apps/proof-and-useage-e2e/tsconfig.e2e.json",
+            "devServerTarget": "proof-and-useage:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "proof-and-useage:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/proof-and-useage-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/proof-and-useage-e2e/**"]
+          }
+        }
+      }
+    },
+    "shared-with-next-from": {
+      "projectType": "library",
+      "root": "libs/shared/with-next-from",
+      "sourceRoot": "libs/shared/with-next-from/src",
+      "prefix": "with-next-from",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/shared/with-next-from/tsconfig.lib.json",
+            "project": "libs/shared/with-next-from/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/shared/with-next-from/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/with-next-from/tsconfig.lib.json",
+              "libs/shared/with-next-from/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/with-next-from/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/with-next-from/jest.config.js",
+            "tsConfig": "libs/shared/with-next-from/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/with-next-from/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "34ac977f-ec46-498a-9708-5b79347680b3"
+  },
+  "schematics": {
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
+    }
+  },
+  "defaultProject": "proof-and-useage"
+}

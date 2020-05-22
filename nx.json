@@ -1,0 +1,33 @@
+{
+  "npmScope": "with-next-from",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "proof-and-useage": {
+      "tags": ["scope:demo", "type:app"]
+    },
+    "proof-and-useage-e2e": {
+      "tags": [],
+      "implicitDependencies": ["proof-and-useage"]
+    },
+    "shared-with-next-from": {
+      "tags": ["scope:shared", "type:util"]
+    }
+  }
+}
