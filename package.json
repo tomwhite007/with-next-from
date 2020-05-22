@@ -29,7 +29,6 @@
   },
   "private": true,
   "dependencies": {
-    "@nrwl/angular": "^9.3.0",
     "@angular/animations": "^9.1.0",
     "@angular/common": "^9.1.0",
     "@angular/compiler": "^9.1.0",
@@ -38,6 +37,9 @@
     "@angular/platform-browser": "^9.1.0",
     "@angular/platform-browser-dynamic": "^9.1.0",
     "@angular/router": "^9.1.0",
+    "@ngrx/effects": "^9.1.2",
+    "@ngrx/store": "^9.1.2",
+    "@nrwl/angular": "^9.3.0",
     "core-js": "^2.5.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
