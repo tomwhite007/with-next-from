@@ -16,9 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@with-next-from/shared/with-next-from": [
-        "libs/shared/with-next-from/src/index.ts"
-      ]
+      "@with-next-from/with-next-from": ["libs/with-next-from/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

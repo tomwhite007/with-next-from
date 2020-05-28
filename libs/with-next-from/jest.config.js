@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'shared-with-next-from',
+  name: 'with-next-from',
   preset: '../../../jest.config.js',
-  coverageDirectory: '../../../coverage/libs/shared/with-next-from',
+  coverageDirectory: '../../../coverage/libs/with-next-from',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

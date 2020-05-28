@@ -1,5 +1,5 @@
 {
-  "name": "@with-next-from/shared-with-next-from",
+  "name": "@with-next-from/with-next-from",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^9.1.0",

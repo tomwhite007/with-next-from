@@ -10,7 +10,7 @@
       },
       "root": "apps/proof-and-useage",
       "sourceRoot": "apps/proof-and-useage/src",
-      "prefix": "with-next-from",
+      "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -124,21 +124,21 @@
         }
       }
     },
-    "shared-with-next-from": {
+    "with-next-from": {
       "projectType": "library",
-      "root": "libs/shared/with-next-from",
-      "sourceRoot": "libs/shared/with-next-from/src",
+      "root": "libs/with-next-from",
+      "sourceRoot": "libs/with-next-from/src",
       "prefix": "with-next-from",
       "architect": {
         "build": {
           "builder": "@nrwl/angular:package",
           "options": {
-            "tsConfig": "libs/shared/with-next-from/tsconfig.lib.json",
-            "project": "libs/shared/with-next-from/ng-package.json"
+            "tsConfig": "libs/with-next-from/tsconfig.lib.json",
+            "project": "libs/with-next-from/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "libs/shared/with-next-from/tsconfig.lib.prod.json"
+              "tsConfig": "libs/with-next-from/tsconfig.lib.prod.json"
             }
           }
         },
@@ -146,19 +146,19 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/shared/with-next-from/tsconfig.lib.json",
-              "libs/shared/with-next-from/tsconfig.spec.json"
+              "libs/with-next-from/tsconfig.lib.json",
+              "libs/with-next-from/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/shared/with-next-from/**"]
+            "exclude": ["**/node_modules/**", "!libs/with-next-from/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/shared/with-next-from/jest.config.js",
-            "tsConfig": "libs/shared/with-next-from/tsconfig.spec.json",
+            "jestConfig": "libs/with-next-from/jest.config.js",
+            "tsConfig": "libs/with-next-from/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "libs/shared/with-next-from/src/test-setup.ts"
+            "setupFile": "libs/with-next-from/src/test-setup.ts"
           }
         }
       },
