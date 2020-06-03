@@ -1,39 +1,36 @@
 {
   "version": 1,
   "projects": {
-    "proof-and-useage": {
+    "demo": {
       "projectType": "application",
       "schematics": {
         "@nrwl/angular:component": {
           "style": "scss"
         }
       },
-      "root": "apps/proof-and-useage",
-      "sourceRoot": "apps/proof-and-useage/src",
-      "prefix": "app",
+      "root": "apps/demo",
+      "sourceRoot": "apps/demo/src",
+      "prefix": "with-next-from",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/proof-and-useage",
-            "index": "apps/proof-and-useage/src/index.html",
-            "main": "apps/proof-and-useage/src/main.ts",
-            "polyfills": "apps/proof-and-useage/src/polyfills.ts",
-            "tsConfig": "apps/proof-and-useage/tsconfig.app.json",
+            "outputPath": "dist/apps/demo",
+            "index": "apps/demo/src/index.html",
+            "main": "apps/demo/src/main.ts",
+            "polyfills": "apps/demo/src/polyfills.ts",
+            "tsConfig": "apps/demo/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/proof-and-useage/src/favicon.ico",
-              "apps/proof-and-useage/src/assets"
-            ],
-            "styles": ["apps/proof-and-useage/src/styles.scss"],
+            "assets": ["apps/demo/src/favicon.ico", "apps/demo/src/assets"],
+            "styles": ["apps/demo/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/proof-and-useage/src/environments/environment.ts",
-                  "with": "apps/proof-and-useage/src/environments/environment.prod.ts"
+                  "replace": "apps/demo/src/environments/environment.ts",
+                  "with": "apps/demo/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -62,64 +59,64 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "proof-and-useage:build"
+            "browserTarget": "demo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "proof-and-useage:build:production"
+              "browserTarget": "demo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "proof-and-useage:build"
+            "browserTarget": "demo:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/proof-and-useage/tsconfig.app.json",
-              "apps/proof-and-useage/tsconfig.spec.json"
+              "apps/demo/tsconfig.app.json",
+              "apps/demo/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/proof-and-useage/**"]
+            "exclude": ["**/node_modules/**", "!apps/demo/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/proof-and-useage/jest.config.js",
-            "tsConfig": "apps/proof-and-useage/tsconfig.spec.json",
+            "jestConfig": "apps/demo/jest.config.js",
+            "tsConfig": "apps/demo/tsconfig.spec.json",
             "passWithNoTests": true,
-            "setupFile": "apps/proof-and-useage/src/test-setup.ts"
+            "setupFile": "apps/demo/src/test-setup.ts"
           }
         }
       }
     },
-    "proof-and-useage-e2e": {
-      "root": "apps/proof-and-useage-e2e",
-      "sourceRoot": "apps/proof-and-useage-e2e/src",
+    "demo-e2e": {
+      "root": "apps/demo-e2e",
+      "sourceRoot": "apps/demo-e2e/src",
       "projectType": "application",
       "architect": {
         "e2e": {
           "builder": "@nrwl/cypress:cypress",
           "options": {
-            "cypressConfig": "apps/proof-and-useage-e2e/cypress.json",
-            "tsConfig": "apps/proof-and-useage-e2e/tsconfig.e2e.json",
-            "devServerTarget": "proof-and-useage:serve"
+            "cypressConfig": "apps/demo-e2e/cypress.json",
+            "tsConfig": "apps/demo-e2e/tsconfig.e2e.json",
+            "devServerTarget": "demo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "proof-and-useage:serve:production"
+              "devServerTarget": "demo:serve:production"
             }
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/proof-and-useage-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/proof-and-useage-e2e/**"]
+            "tsConfig": ["apps/demo-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/demo-e2e/**"]
           }
         }
       }
@@ -171,7 +168,7 @@
   },
   "cli": {
     "defaultCollection": "@nrwl/angular",
-    "analytics": "34ac977f-ec46-498a-9708-5b79347680b3"
+    "analytics": "eb25817a-4fe4-4f29-9ad9-1fb102652b3d"
   },
   "schematics": {
     "@nrwl/angular:application": {
@@ -182,5 +179,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "proof-and-useage"
+  "defaultProject": "demo"
 }

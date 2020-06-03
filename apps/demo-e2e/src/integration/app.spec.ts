@@ -1,6 +1,6 @@
 import { getGreeting } from '../support/app.po';
 
-describe('proof-and-useage', () => {
+describe('demo', () => {
   beforeEach(() => cy.visit('/'));
 
   it('should display welcome message', () => {
@@ -8,6 +8,6 @@ describe('proof-and-useage', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('Welcome to proof-and-useage!');
+    getGreeting().contains('Welcome to demo!');
   });
 });

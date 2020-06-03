@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'proof-and-useage',
+  name: 'demo',
   preset: '../../jest.config.js',
-  coverageDirectory: '../../coverage/apps/proof-and-useage',
+  coverageDirectory: '../../coverage/apps/demo',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',

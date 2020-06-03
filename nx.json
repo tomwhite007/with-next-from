@@ -19,12 +19,12 @@
     }
   },
   "projects": {
-    "proof-and-useage": {
+    "demo": {
       "tags": ["scope:demo", "type:app"]
     },
-    "proof-and-useage-e2e": {
+    "demo-e2e": {
       "tags": [],
-      "implicitDependencies": ["proof-and-useage"]
+      "implicitDependencies": ["demo"]
     },
     "with-next-from": {
       "tags": ["scope:shared", "type:util"]
