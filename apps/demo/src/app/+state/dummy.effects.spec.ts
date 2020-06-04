@@ -25,7 +25,7 @@ describe('DummyEffects', () => {
     effects = TestBed.get(DummyEffects);
   });
 
-  fit('should trigger SetListIsLong - using withLatestFrom', () => {
+  xit('should trigger SetListIsLong - using withLatestFrom', () => {
     storeSpy.select.mockReturnValue(cold('a', { a: ['testA', 'testB'] }));
 
     actions$ = hot('-a-|', {
