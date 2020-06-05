@@ -9,6 +9,7 @@ import { withNextFrom } from '@with-next-from/with-next-from';
 
 @Injectable()
 export class DummyEffects {
+  // example effect using the power of withLatestFrom
   checkListLengthWithLatest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DummyActions.CheckList),
@@ -19,6 +20,16 @@ export class DummyEffects {
     )
   );
 
+  // a similar effect using switchMap to allow better mocking in tests
+  checkListLengthSwitchMap$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(DummyActions.CheckList),
+      switchMap(() => this.store.select(dummyStateQuery.getList)),
+      map((list) => DummyActions.SetListIsLong({ isLong: list.length > 1 }))
+    )
+  );
+
+  // custom operator withNextFrom still allows good mocking in tests but behaves like withLatestFrom
   checkListLengthWithNext$ = createEffect(() =>
     this.actions$.pipe(
       ofType(DummyActions.CheckList),

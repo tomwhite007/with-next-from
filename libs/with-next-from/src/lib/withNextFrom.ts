@@ -1,4 +1,4 @@
-import { Observable, isObservable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 export const withNextFrom = <N>(...args: Array<() => Observable<N>>) => <O>(

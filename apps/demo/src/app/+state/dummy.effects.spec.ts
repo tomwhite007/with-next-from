@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { hot, cold } from '@nrwl/angular/testing';
@@ -25,7 +25,12 @@ describe('DummyEffects', () => {
     effects = TestBed.get(DummyEffects);
   });
 
-  xit('should trigger SetListIsLong - using withLatestFrom', () => {
+  /**
+   * This test will fail, because `withLatestFrom` doesn't allow mocking of a
+   * parameter stream after the initial stream (the effect), has been created
+   * in the TestBed.configureTestingModule()
+   **/
+  it('should trigger SetListIsLong - using withLatestFrom', () => {
     storeSpy.select.mockReturnValue(cold('a', { a: ['testA', 'testB'] }));
 
     actions$ = hot('-a-|', {
@@ -34,6 +39,20 @@ describe('DummyEffects', () => {
 
     expect(effects.checkListLengthWithLatest$).toBeObservable(
       cold('-a', {
+        a: DummyActions.SetListIsLong({ isLong: true }),
+      })
+    );
+  });
+
+  it('should trigger SetListIsLong - using switchMap', () => {
+    storeSpy.select.mockReturnValue(cold('(a|)', { a: ['testX', 'testY'] }));
+
+    actions$ = hot('-a-|', {
+      a: DummyActions.CheckList(),
+    });
+
+    expect(effects.checkListLengthSwitchMap$).toBeObservable(
+      cold('-a-|', {
         a: DummyActions.SetListIsLong({ isLong: true }),
       })
     );

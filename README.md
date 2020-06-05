@@ -1,84 +1,33 @@
-# WithNextFrom
+# WithNextFrom operator
+
+Library code for the custom RxJs operator, `withNextFrom` npm library
+
+`withNextFrom` is designed to behave in a similar way to the standard RxJs operator, `withLatestFrom`, but without the issue described below. It can be treated as a drop in replacement for the original operator that particullarly benefits [Angular](https://angular.io/) developers using scaffolded unit tests the follow Angular standard / best practices.
 
 This project was generated using [Nx](https://nx.dev).
 
-<p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
+`withNextFrom`
 
-🔎 **Nx is a set of Extensible Dev Tools for Monorepos.**
+# withLatestFrom Unit Test mocking issue
 
-## Quick Start & Documentation
+I created this project to demonstrate unexpected behaviour from the `RxJs` pipe operator, `withLatestFrom`, when its results are mocked within a test _after_ the TestBed module has been loaded.
 
-[Nx Documentation](https://nx.dev/angular)
+To prove this, I've created to NgRx effects that do the same job; one using `withLatestFrom` and one using `switchMap` (see file: [dummy-state.effects.spec.ts](apps\demo\src\app+state\dummy.effects.ts)). I have then created two identical unit tests that mock the method that returns the observable within them (see file: [dummy-state.effects.ts](apps\demo\src\app+state\dummy.effects.spec.ts)).
 
-[10-minute video showing all Nx features](https://nx.dev/angular/getting-started/what-is-nx)
+To solve the problem, whilst retaining the benefits of `withLatestFrom`, I've created my own operator `withNextFrom` which serves the same purpose for me as `withLatestFrom`, but doesn't need to be aware of the observable stream's history because it's only interested in the next value (or current one, in the case of Behaviour Subject).
 
-[Interactive Tutorial](https://nx.dev/angular/tutorial/01-create-application)
+## History
 
-## Adding capabilities to your workspace
+I first noticed this when trying to create a demo using RxJs Marbles Testing library. I couldn't understand why my production effects could use Marbles and mocking inside each test, but my demo project could only be mocked on initialisation (rather than inside each test). After removing everything piece by piece, I found that the only difference in my Marbles test cases was that my demo NgRx effects were using `withLatestFrom`.
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+I found that `withLatestFrom` mocking _on initialisation_ inside the `beforeEach()` of a .spec file works fine. But this is really considered bad practice because it separates the test case mocked values from the unit test
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+I created an issue about this on the RxJs repo: [Mocking input to withLatestFrom inside NgRx Effects tests fails when using Angular best practice #5159](https://github.com/ReactiveX/rxjs/issues/5159)
 
-Below are some plugins which you can add to your workspace:
+## Getting started
 
-- [Angular](https://angular.io)
-  - `ng add @nrwl/angular`
-- [React](https://reactjs.org)
-  - `ng add @nrwl/react`
-- Web (no framework frontends)
-  - `ng add @nrwl/web`
-- [Nest](https://nestjs.com)
-  - `ng add @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `ng add @nrwl/express`
-- [Node](https://nodejs.org)
-  - `ng add @nrwl/node`
-
-## Generate an application
-
-Run `ng g @nrwl/angular:app my-app` to generate an application.
-
-> You can use any of the plugins above to generate applications as well.
-
-When using Nx, you can create multiple applications and libraries in the same workspace.
-
-## Generate a library
-
-Run `ng g @nrwl/angular:lib my-lib` to generate a library.
-
-> You can also use any of the plugins above to generate libraries as well.
-
-Libraries are sharable across libraries and applications. They can be imported from `@with-next-from/mylib`.
-
-## Development server
-
-Run `ng serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng g component my-component --project=my-app` to generate a new component.
-
-## Build
-
-Run `ng build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Use `npm install` to get dependencies.
 
 ## Running unit tests
 
-Run `ng test my-app` to execute the unit tests via [Jest](https://jestjs.io).
-
-Run `nx affected:test` to execute the unit tests affected by a change.
-
-## Running end-to-end tests
-
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
-
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
-
-## Understand your workspace
-
-Run `nx dep-graph` to see a diagram of the dependencies of your projects.
-
-## Further help
-
-Visit the [Nx Documentation](https://nx.dev/angular) to learn more.
+Run `ng test` to execute the unit tests in [Jest](https://jestjs.io/).
