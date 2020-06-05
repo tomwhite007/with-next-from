@@ -6,8 +6,6 @@ Library code for the custom RxJs operator, `withNextFrom` npm library
 
 This project was generated using [Nx](https://nx.dev).
 
-`withNextFrom`
-
 # withLatestFrom Unit Test mocking issue
 
 I created this project to demonstrate unexpected behaviour from the `RxJs` pipe operator, `withLatestFrom`, when its results are mocked within a test _after_ the TestBed module has been loaded.
