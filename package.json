@@ -1,7 +1,18 @@
 {
   "name": "with-next-from",
-  "version": "0.0.0",
+  "author": {
+    "name": "Tom White",
+    "url": "https://github.com/tomwhite007"
+  },
+  "description": "RxJS operator that returns an array of the next available values of each parameter observable",
   "license": "MIT",
+  "maintainers": [
+    "Tom White"
+  ],
+  "repository": {
+    "url": "https://github.com/tomwhite007/with-next-from"
+  },
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "nx": "nx",
