@@ -30,7 +30,7 @@ describe('DummyEffects', () => {
    * parameter stream after the initial stream (the effect), has been created
    * in the TestBed.configureTestingModule()
    **/
-  it('should trigger SetListIsLong - using withLatestFrom', () => {
+  xit('should trigger SetListIsLong - using withLatestFrom', () => {
     storeSpy.select.mockReturnValue(cold('a', { a: ['testA', 'testB'] }));
 
     actions$ = hot('-a-|', {
