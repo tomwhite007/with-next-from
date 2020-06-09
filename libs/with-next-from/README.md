@@ -1,8 +1,27 @@
 # WithNextFrom custom RxJs operator
 
-The `withNextFrom` RxJs operator is designed to behave in a similar way to the standard RxJs operator, `withLatestFrom`, but without the problem described below. It can be treated as a drop in replacement for the original operator that particullarly benefits [Angular](https://angular.io/) developers using scaffolded unit tests the follow Angular standard / best practices.
+The `withNextFrom` RxJs operator is designed to behave in a similar way to the standard RxJs operator, `withLatestFrom`, but without the problem described below. It can be treated as a drop in replacement for the original operator that particularly benefits [Angular](https://angular.io/) developers using scaffolded unit tests the follow Angular standard / best practices.
 
-# A patch for withLatestFrom's Angular Unit Test mocking problem
+## Usage
+
+```Typescript
+  stream1$.pipe(
+      withNextFrom(
+        () => stream2$,
+        () => stream3$,
+        () => stream4$,
+        // ...more stream args...
+      )
+    ).subscribe(result => {
+      console.log(result); // [s1,s2,s3,s4]
+    });
+```
+
+## Parameters
+
+Unlike `withLatestFrom`, this new operator `withNextFrom` requires each parameter to be a _function_ that returns an Observable, as opposed to a pure Observable. This is to allow the closure function in the RxJs operator to not block the unit test run-time 'mockability'.
+
+## A patch for withLatestFrom's Angular Unit Test mocking problem
 
 There is an unexpected behaviour from the `RxJs` pipe operator, `withLatestFrom`, when its results are mocked within a test _after_ the TestBed module has been loaded.
 
