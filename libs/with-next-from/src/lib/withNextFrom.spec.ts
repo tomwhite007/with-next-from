@@ -67,23 +67,47 @@ describe('withNextFrom', () => {
   });
 
   // prettier-ignore
-  xit('should fail because withLatestFrom completes when the source does', () => {
-    const e1$ =      cold('-----a|');
-    const e2$ =       hot('--b-------------d------|');
-    const e3$ =       hot('e--------------g---h------|');
-    const e4$ =      cold('-------i|');
-    const expected = cold('-------x|', {
-      x: ['a', 'b', 'e', 'i'],
+  it('should fire two arrays and complete on the last', () => {
+    const e1$ =      cold('-----a------b--|');
+    const e2$ =       hot('------c------d------|');
+    const e3$ =       hot('e------f---g---h------|');
+    const e4$ =      cold('-----i----------j---|');
+    const expected = cold('----------x------(y|)', {
+      x: ['a', 'c', 'f', 'i'],
+      y: ['b', 'd', 'h', 'i'],
     });
 
     const result = e1$.pipe(
-      withLatestFrom(
-        e2$,
-        e3$,
-        e4$
+      withNextFrom(
+        () => e2$,
+        () => e3$,
+        () => e4$
       )
     );
 
     expect(result).toBeObservable(expected);
+  });
+
+  describe('contrast with withLatestFrom operator', () => {
+    // prettier-ignore
+    xit('should fail because withLatestFrom completes when the source does', () => {
+      const e1$ =      cold('-----a|');
+      const e2$ =       hot('--b-------------d------|');
+      const e3$ =       hot('e--------------g---h------|');
+      const e4$ =      cold('-------i|');
+      const expected = cold('-------x|', {
+        x: ['a', 'b', 'e', 'i'],
+      });
+
+      const result = e1$.pipe(
+        withLatestFrom(
+          e2$,
+          e3$,
+          e4$
+        )
+      );
+
+      expect(result).toBeObservable(expected);
+    });
   });
 });
