@@ -51,9 +51,26 @@ describe('withNextFrom', () => {
     const e2$ =       hot('--b-----c---d------|');
     const e3$ =       hot('e------f---g---h------|');
     const e4$ =      cold('--(i|)');
-    const expected = cold('-----|', {
-      x: ['a', 'c', 'f', 'i'],
-    });
+    const expected = cold('-----|');
+
+    const result = e1$.pipe(
+      withNextFrom(
+        () => e2$,
+        () => e3$,
+        () => e4$
+      )
+    );
+
+    expect(result).toBeObservable(expected);
+  });
+
+  // prettier-ignore
+  fit('should error with no result', () => {
+    const e1$ =      cold('-----#');
+    const e2$ =       hot('--b-----c---d------|');
+    const e3$ =       hot('e------f---g---h------|');
+    const e4$ =      cold('--(i|)');
+    const expected = cold('-----#');
 
     const result = e1$.pipe(
       withNextFrom(
