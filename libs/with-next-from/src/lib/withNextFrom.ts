@@ -1,28 +1,55 @@
-import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Observable, of, zip, concat } from 'rxjs';
+import { switchMap, first, tap } from 'rxjs/operators';
 
 export const withNextFrom = <N>(...args: Array<() => Observable<N>>) => <O>(
   source$: Observable<O>
 ) =>
-  new Observable<any[]>((observer) => {
-    return source$.subscribe({
-      next(o) {
-        let streamCount = 0;
-        const result: any[] = [o];
-        args.forEach((getNextStream: () => Observable<N>, argIndex: number) => {
-          getNextStream()
-            .pipe(take(1))
-            .subscribe({
-              next(n) {
-                streamCount++;
-                result[argIndex + 1] = n;
-                if (streamCount === args.length) observer.next(result);
-              },
-              error(err) {
-                observer.error(err);
-              },
-            });
-        });
+  new Observable((observer) => {
+    let inFlight = false;
+    let currentSourceValue: O;
+    let argsResults: N[] = [];
+    const clearCache = () => {
+      inFlight = false;
+      currentSourceValue = undefined;
+      argsResults = [];
+    };
+
+    return concat(
+      source$
+        .pipe(
+          switchMap((o) => {
+            inFlight = true;
+            currentSourceValue = o;
+
+            return zip(
+              of(o),
+              ...args.map((f, idx) =>
+                f().pipe(
+                  first(),
+                  // cache result in case source completes
+                  tap((n) => (argsResults[idx] = n))
+                )
+              )
+            );
+          })
+        )
+        .pipe(tap(clearCache)),
+
+      inFlight
+        ? // pickup where previous zip left off
+          zip(
+            of(currentSourceValue),
+            ...args.map((f, idx) =>
+              argsResults[idx] !== undefined
+                ? of(argsResults[idx])
+                : f().pipe(first())
+            )
+          ).pipe(tap(clearCache))
+        : // complete immediately
+          of()
+    ).subscribe({
+      next(res) {
+        observer.next(res);
       },
       error(err) {
         observer.error(err);
