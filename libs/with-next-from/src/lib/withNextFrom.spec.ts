@@ -65,7 +65,7 @@ describe('withNextFrom', () => {
   });
 
   // prettier-ignore
-  fit('should error with no result', () => {
+  it('should error with no result', () => {
     const e1$ =      cold('-----#');
     const e2$ =       hot('--b-----c---d------|');
     const e3$ =       hot('e------f---g---h------|');
@@ -107,14 +107,12 @@ describe('withNextFrom', () => {
 
   describe('contrast with withLatestFrom operator', () => {
     // prettier-ignore
-    xit('should fail because withLatestFrom completes when the source does', () => {
+    it('should complete because withLatestFrom completes when the source does', () => {
       const e1$ =      cold('-----a|');
       const e2$ =       hot('--b-------------d------|');
       const e3$ =       hot('e--------------g---h------|');
       const e4$ =      cold('-------i|');
-      const expected = cold('-------x|', {
-        x: ['a', 'b', 'e', 'i'],
-      });
+      const expected = cold('------|');
 
       const result = e1$.pipe(
         withLatestFrom(
