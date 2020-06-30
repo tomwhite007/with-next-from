@@ -2,6 +2,8 @@
 
 The `withNextFrom` RxJs operator is designed to behave in a similar way to the standard RxJs operator, `withLatestFrom`, but without the problem described below. It can be treated as a drop in replacement for the original operator that particularly benefits [Angular](https://angular.io/) developers using scaffolded unit tests the follow Angular standard / best practices.
 
+**Note:** `withNextFrom` does not complete immediately when the source stream completes if it's already waiting for the parameter stream's next values. It will wait until all of the parameter streams fire their next value before completing. So operators like `first()` or `take()` can be applied to the source stream without impacting the resulting output.
+
 ## Usage
 
 ```Typescript
