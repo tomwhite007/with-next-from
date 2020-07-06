@@ -30,3 +30,7 @@ There is an unexpected behaviour from the `RxJs` pipe operator, `withLatestFrom`
 `withLatestFrom` mocking _on initialisation_ inside the `beforeEach()` of a .spec file works fine. But this is really considered bad practice because it separates the test case mocked values from the unit test.
 
 This alternative operator, `withNextFrom` serves a similar purpose as `withLatestFrom`, but doesn't need to be aware of the observable stream's history because it's only interested in the next value (or current one, in the case of Behaviour Subject).
+
+## Why did I create this?
+
+I think the power and simplicity of `withLatestFrom` is awesome. But the non-standard way of mocking it for Angular tests was a deal breaker for me. So after spending too much time researching the issue, I fixed it.
