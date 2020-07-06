@@ -29,3 +29,9 @@ Use `npm install` to get dependencies.
 ## Running unit tests
 
 Run `ng test` to execute the unit tests in [Jest](https://jestjs.io/).
+
+### Deployment notes
+
+ng build with-next-from --prod
+cd dist/libs/with-next-from
+sudo npm publish --access public
