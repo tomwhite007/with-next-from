@@ -4,6 +4,12 @@ The `withNextFrom` RxJs operator is designed to behave in a similar way to the s
 
 **Note:** `withNextFrom` does not complete immediately when the source stream completes if it's already waiting for the parameter stream's next values. It will wait until all of the parameter streams fire their next value before completing. So operators like `first()` or `take()` can be applied to the source stream without impacting the resulting output.
 
+![]()
+
+<img src="https://angular2bes.firebaseapp.com/assets/images/withNextFrom-diagram.png"
+     alt="withNextFrom marbles diagram"
+     style="max-width: 800px;" />
+
 ## Usage
 
 ```Typescript
