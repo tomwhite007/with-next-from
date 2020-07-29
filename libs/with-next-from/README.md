@@ -1,6 +1,6 @@
 # WithNextFrom custom RxJs operator
 
-The `withNextFrom` RxJs operator is designed to behave in a similar way to the standard RxJs operator, `withLatestFrom`, but without the problem described below. It can be treated as a drop in replacement for the original operator that particularly benefits [Angular](https://angular.io/) developers using scaffolded unit tests the follow Angular standard / best practices.
+The `withNextFrom` RxJs operator is designed to behave in a similar way to the standard RxJs operator, `withLatestFrom`, but without the problem described below. It can be treated as a drop in replacement for the original operator that particularly benefits [Angular](https://angular.io/) developers using scaffolded unit tests that follow accepted Angular best practices.
 
 **Note:** `withNextFrom` does not complete immediately when the source stream completes if it's already waiting for the parameter stream's next values. It will wait until all of the parameter streams fire their next value before completing. So operators like `first()` or `take()` can be applied to the source stream without impacting the resulting output.
 
@@ -36,3 +36,7 @@ There is an unexpected behaviour from the `RxJs` pipe operator, `withLatestFrom`
 `withLatestFrom` mocking _on initialisation_ inside the `beforeEach()` of a .spec file works fine. But this is really considered bad practice because it separates the test case mocked values from the unit test.
 
 This alternative operator, `withNextFrom` serves a similar purpose as `withLatestFrom`, but doesn't need to be aware of the observable stream's history because it's only interested in the next value (or current one, in the case of Behaviour Subject).
+
+## Why did I create this?
+
+I think the power and simplicity of `withLatestFrom` is awesome. But the non-standard way of mocking it for Angular tests was a deal breaker for me. So after spending too much time researching the issue, I fixed it.

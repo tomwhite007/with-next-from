@@ -5,7 +5,7 @@ import * as fromDummy from './dummy.reducer';
 import * as DummyActions from './dummy.actions';
 import { Store } from '@ngrx/store';
 import { dummyStateQuery } from './dummy.selectors';
-import { withNextFrom } from '@with-next-from/with-next-from';
+import { withNextFrom } from '@gyrus/ngx-with-next-from';
 
 @Injectable()
 export class DummyEffects {

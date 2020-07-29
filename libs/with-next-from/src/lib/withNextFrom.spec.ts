@@ -105,6 +105,28 @@ describe('withNextFrom', () => {
     expect(result).toBeObservable(expected);
   });
 
+  // prettier-ignore
+  it('should fire one array, skip the second (incomplete array) trigger and fire a final array', () => {
+    const e1$ =      cold('-----a----b--c--|');
+    const e2$ =       hot('------d-----e---f---|');
+    const e3$ =       hot('------g-----h----i------|');
+    const e4$ =       hot('-------j----------k---|');
+    const expected = cold('-------x----------(y|)', {
+      x: ['a', 'd', 'g', 'j'],
+      y: ['c', 'f', 'i', 'k'],
+    });
+
+    const result = e1$.pipe(
+      withNextFrom(
+        () => e2$,
+        () => e3$,
+        () => e4$
+      )
+    );
+
+    expect(result).toBeObservable(expected);
+  });
+
   describe('contrast with withLatestFrom operator', () => {
     // prettier-ignore
     it('should complete because withLatestFrom completes when the source does', () => {

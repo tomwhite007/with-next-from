@@ -2,7 +2,7 @@
 
 Library code for the custom RxJs operator, `withNextFrom` npm library [in this sub folder](/libs/with-next-from)
 
-`withNextFrom` is designed to behave in a similar way to the standard RxJs operator, `withLatestFrom`, but without the issue described below. It can be treated as a drop in replacement for the original operator that particullarly benefits [Angular](https://angular.io/) developers using scaffolded unit tests the follow Angular standard / best practices.
+`withNextFrom` is designed to behave in a similar way to the standard RxJs operator, `withLatestFrom`, but without the issue described below. It can be treated as a drop in replacement for the original operator that particullarly benefits [Angular](https://angular.io/) developers using scaffolded unit tests that follow accepted Angular best practices.
 
 This project was generated using [Nx](https://nx.dev).
 
@@ -29,3 +29,9 @@ Use `npm install` to get dependencies.
 ## Running unit tests
 
 Run `ng test` to execute the unit tests in [Jest](https://jestjs.io/).
+
+### Deployment notes
+
+ng build with-next-from --prod
+cd dist/libs/with-next-from
+sudo npm publish --access public
